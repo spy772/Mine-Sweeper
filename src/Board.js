@@ -2,20 +2,26 @@ import './Board.css';
 import { Square } from './Square';
 
 function Row(props) {
-    alert("Number" + JSON.stringify(props.cells));
     var row = [];
     for (var i = 0; i < props.cells; i++) {
         row.push(<Square />);
     }
-    return <div>{row}</div>;
+    return <div className="board-row">{row}</div>;
 }
 
 
 export function Board(props) {
     return (
         <div>
-            <Row cells={props.columns}/>
+            <Rows {...props}/>
         </div>
     );
 }
 
+function Rows(props) {
+    var rows = [];
+    for (var i = 0; i < props.rows; i++) {
+        rows.push(<Row cells={props.columns}/>);
+    }
+    return <div className="board-row">{rows}</div>;
+}

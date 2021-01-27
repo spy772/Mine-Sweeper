@@ -1,6 +1,7 @@
 import './App.css';
 import { Square } from './Square';
 import { Board } from './Board';
+import { Game } from './Game';
 
 
 
@@ -9,7 +10,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-          <Board rows={5} columns={10}/>
+          <Game/>
         </div>
       </header>
     </div>

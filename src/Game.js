@@ -4,7 +4,7 @@ import { Game as Config } from './Config';
 import React, { useState } from 'react';
 
 export function Game() {
-  const [game, setGame] = useState(new Config('started', 45, 45));
+  const [game, setGame] = useState(new Config('started', 45, 45, 15));
     return (
         <div className="game">
           <div className="game-board">

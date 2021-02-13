@@ -4,7 +4,9 @@ export class Game {
         this._status = status;
         this._rows = rows;
         this._columns = columns;
-        this._minesPercent = minesPercent
+        this._minesPercent = minesPercent;
+        this.autoMinePlace();
+        alert(this._minesTotal);
     }
 
     get status() {
@@ -41,7 +43,14 @@ export class Game {
     autoMinePlace() {
         this._minesTotal = this._rows * this._columns * (this._minesPercent / 100);
         this._mines = [];
-        // for (let i = 0; i < )
+        for (let i = 0; i < this._minesTotal; i++) {
+            var minesCoords = {
+                x: Math.floor(Math.random() * this._rows),
+                y: Math.floor(Math.random() * this._columns)
+            }
+            this._mines.push(minesCoords);
+        }
+        console.log('ready')
     }
 }
 

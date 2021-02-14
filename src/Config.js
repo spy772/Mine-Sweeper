@@ -6,7 +6,6 @@ export class Game {
         this._columns = columns;
         this._minesPercent = minesPercent;
         this.autoMinePlace();
-        alert(this._minesTotal);
     }
 
     get status() {
@@ -51,6 +50,10 @@ export class Game {
             this._mines.push(minesCoords);
         }
         console.log('ready')
+    }
+
+    get mines() {
+        return this._mines;
     }
 }
 

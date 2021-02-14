@@ -8,7 +8,7 @@ export function Game() {
     return (
         <div className="game">
           <div className="game-board">
-            <Board rows={ game.rows } columns={ game.columns }/>
+            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines }/>
           </div>
           <div className="game-info">
             <div>{/* status */}</div>

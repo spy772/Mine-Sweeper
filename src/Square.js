@@ -14,12 +14,23 @@ export function Square(props) {
     }
   });
 
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked(true);
+    props.squareEvent(props.x, props.y);
+  }
+
+  // {props.mine ? 'm' : ''}
+
     return (
     <button
         className="square"
-        onClick={alertMe}
+        onClick={handleClick}
       >
-{props.mine ? 'm' : ''}
+        {clicked ? 
+        props.mine ? 'm' : 'c'
+        : null }
         
       </button>
     );

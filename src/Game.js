@@ -8,7 +8,7 @@ export function Game() {
     return (
         <div className="game">
           <div className="game-board">
-            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines }/>
+            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines } squareEvent={ wasClicked }/>
           </div>
           <div className="game-info">
             <div>{/* status */}</div>
@@ -16,5 +16,9 @@ export function Game() {
           </div>
         </div>
     )
+
+    function wasClicked(x, y) {
+      console.log(x, y);
+    }
 }
 

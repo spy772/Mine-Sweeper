@@ -1,5 +1,7 @@
 import './Square.css';
 import { React, useState, useEffect } from 'react';
+import { logDOM } from '@testing-library/react';
+import flag from './Image/flag.svg';
 
 export function Square(props) {
   const alertMe = () => {
@@ -27,11 +29,8 @@ export function Square(props) {
     <button
         className="square"
         onClick={handleClick}
-      >
-        {clicked ? 
-        props.mine ? 'm' : 'c'
-        : null }
-        
+      ><img src={flag} width="20px" height="20px" />
+     
       </button>
     );
 }

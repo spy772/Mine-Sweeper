@@ -1,15 +1,6 @@
 import './Board.css';
 import { Square } from './Square';
-
-function isItMine(mines, x, y) {
-    for (let i = 0; i < mines.length; i++) {
-        if (mines[i].x === x && mines[i].y === y) {
-            return true;
-        } 
-    }
-    return false;
-}
-
+import { isItMine } from './Utility';
 
 function Row(props) {
     var row = [];

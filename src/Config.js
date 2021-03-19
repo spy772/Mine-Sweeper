@@ -6,6 +6,7 @@ export class Game {
         this._columns = columns;
         this._minesPercent = minesPercent;
         this.autoMinePlace();
+        this.tileStatus();
     }
 
     get status() {
@@ -55,5 +56,23 @@ export class Game {
     get mines() {
         return this._mines;
     }
-}
 
+    tileStatus() {
+        this._tiles = []; 
+        for (let i = 0; i < this._rows; i++) {
+            this._tiles.push([]);
+            for (let s = 0; s < this._columns; s++) {
+                this._tiles[i].push('not clicked');
+            }
+        }
+        console.log(this._tiles);
+    }
+
+    get tiles() {
+        return this._tiles;
+    }
+
+    click(x, y) {
+            this._tiles[x][y] = 'clicked';
+    };
+};

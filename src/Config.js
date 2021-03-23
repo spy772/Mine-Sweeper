@@ -75,4 +75,8 @@ export class Game {
     click(x, y) {
             this._tiles[x][y] = 'clicked';
     };
+
+    flag(x, y) {
+        this._tiles[x][y] = 'flagged';
+    };
 };

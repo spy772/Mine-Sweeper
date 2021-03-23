@@ -9,7 +9,7 @@ export function Game() {
     return (
         <div className="game">
           <div className="game-board">
-            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines } squareEvent ={ wasClicked }/>
+            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines } squareEvent={ wasClicked }/>
           </div>
           <div className="game-info">
             <div>{/* status */}</div>
@@ -18,9 +18,13 @@ export function Game() {
         </div>
     )
 
-    function wasClicked(x, y) {
+    function wasClicked(x, y, isLeftClick) {
       setGame(prev => {
-        prev.click(x, y)
+        if (isLeftClick) {
+          prev.click(x, y)
+        } else {
+          prev.flag(x, y)
+        }
         console.log(prev.tiles)
         return prev
       });

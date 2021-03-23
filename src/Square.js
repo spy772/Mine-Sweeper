@@ -18,19 +18,27 @@ export function Square(props) {
 
   const [clicked, setClicked] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setClicked(true);
-    props.squareEvent(props.x, props.y);
+    if (e.nativeEvent.which === 1) {
+      props.squareEvent(props.x, props.y, true);
+      console.log('Left click');
+    } else if (e.nativeEvent.which === 3) {
+      props.squareEvent(props.x, props.y, false);
+      console.log('Right click');
+    }
   }
 
-  // {props.mine ? 'm' : ''}
 
-    return (
-    <button
-        className="square"
-        onClick={handleClick}
-      ><img src={flag} width="20px" height="20px" />
-     
-      </button>
-    );
+
+return (
+  <button
+    className="square"
+    onClick={handleClick}
+    onContextMenu={handleClick}
+  ><img src={flag} width="20px" height="20px" />
+    {props.mine ? 'm' : ''}
+  </button>
+);
 }

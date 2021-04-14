@@ -3,13 +3,14 @@ import './Game.css';
 import { Game as Config } from './Config';
 import React, { useState } from 'react';
 import { isItMine } from './Utility';
+import * as _ from 'lodash';
 
 export function Game() {
   const [game, setGame] = useState(new Config('started', 45, 45, 15));
     return (
         <div className="game">
           <div className="game-board">
-            <Board rows={ game.rows } columns={ game.columns } mines={ game.mines } squareEvent={ wasClicked }/>
+            <Board rows={ game.rows } columns={ game.columns } tiles={ game.tiles } squareEvent={ wasClicked }/>
           </div>
           <div className="game-info">
             <div>{/* status */}</div>
@@ -20,13 +21,18 @@ export function Game() {
 
     function wasClicked(x, y, isLeftClick) {
       setGame(prev => {
+        const before = JSON.stringify(prev);
+        
         if (isLeftClick) {
           prev.click(x, y)
         } else {
           prev.flag(x, y)
+          console.log('flagged x:' + x + ' y:' + y)
         }
+        const now = JSON.stringify(prev);
+        console.log('prev same as before: ' + (before === now));
         console.log(prev.tiles)
-        return prev
+        return _.cloneDeep(prev);
       });
       console.log(x, y);
      /* if (isItMine(mines, x, y)) {

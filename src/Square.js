@@ -11,9 +11,7 @@ export function Square(props) {
   }
 
   useEffect(() => {
-    if (props.mine) {
-      console.log('M');
-    }
+      console.log('props now are: ' + JSON.stringify(props.status));
   });
 
   const [clicked, setClicked] = useState(false);
@@ -37,8 +35,8 @@ return (
     className="square"
     onClick={handleClick}
     onContextMenu={handleClick}
-  ><img src={flag} width="20px" height="20px" />
-    {props.mine ? 'm' : ''}
+  >
+    {props.status === 'flagged' ? <img src={flag} width="20px" height="20px" /> : ''}
   </button>
 );
 }

@@ -57,6 +57,7 @@ export class Game {
         return this._mines;
     }
 
+
     tileStatus() {
         this._tiles = []; 
         for (let i = 0; i < this._rows; i++) {
@@ -66,11 +67,11 @@ export class Game {
             }
         }
         console.log(this._tiles);
-    }
+    };
 
     get tiles() {
         return this._tiles;
-    }
+    };
 
     click(x, y) {
             this._tiles[x][y] = 'clicked';
@@ -79,4 +80,4 @@ export class Game {
     flag(x, y) {
         this._tiles[x][y] = 'flagged';
     };
-};
+}; 

@@ -14,7 +14,7 @@ function Row(props) {
 
 export function Board(props) {
     useEffect(() => {
-        console.log('board props now are: ' + JSON.stringify(props));
+       // console.log('board props now are: ' + JSON.stringify(props));
     });
     return (
         <div>

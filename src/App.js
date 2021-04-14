@@ -105,7 +105,7 @@ console.log(factorial(6));
   } */
 
   useEffect(() => {
-    console.log('I was re-rendered')
+   // console.log('I was re-rendered')
   }); 
 
   return (

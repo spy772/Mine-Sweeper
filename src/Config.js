@@ -50,7 +50,6 @@ export class Game {
             }
             this._mines.push(minesCoords);
         }
-        console.log('ready')
     }
 
     get mines() {
@@ -66,7 +65,7 @@ export class Game {
                 this._tiles[i].push('not clicked');
             }
         }
-        console.log(this._tiles);
+       // console.log(this._tiles);
     };
 
     get tiles() {

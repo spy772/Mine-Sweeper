@@ -27,14 +27,14 @@ export function Game() {
           prev.click(x, y)
         } else {
           prev.flag(x, y)
-          console.log('flagged x:' + x + ' y:' + y)
+         // console.log('flagged x:' + x + ' y:' + y)
         }
         const now = JSON.stringify(prev);
-        console.log('prev same as before: ' + (before === now));
-        console.log(prev.tiles)
+        // console.log('prev same as before: ' + (before === now));
+        // console.log(prev.tiles)
         return _.cloneDeep(prev);
       });
-      console.log(x, y);
+      // console.log(x, y);
      /* if (isItMine(mines, x, y)) {
         console.log('boom');
       } else {

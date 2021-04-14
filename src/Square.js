@@ -6,12 +6,12 @@ import flag from './Image/flag.svg';
 export function Square(props) {
   const alertMe = () => {
     if (props.mine) {
-      console.log('m');
+      // console.log('m');
     }
   }
 
   useEffect(() => {
-      console.log('props now are: ' + JSON.stringify(props.status));
+      // console.log('props now are: ' + JSON.stringify(props.status));
   });
 
   const [clicked, setClicked] = useState(false);

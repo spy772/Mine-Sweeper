@@ -24,7 +24,11 @@ export function Game() {
         const before = JSON.stringify(prev);
         
         if (isLeftClick) {
-          prev.click(x, y)
+          if (isItMine(prev.mines, x, y)) {
+            prev.mined(x, y)
+          } else {
+            prev.click(x, y)
+          }
         } else {
           prev.flag(x, y)
          // console.log('flagged x:' + x + ' y:' + y)

@@ -79,4 +79,8 @@ export class Game {
     flag(x, y) {
         this._tiles[x][y] = 'flagged';
     };
+
+    mined(x, y) {
+        this._tiles[x][y] = 'mined';
+    };
 }; 

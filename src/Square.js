@@ -2,6 +2,7 @@ import './Square.css';
 import { React, useState, useEffect } from 'react';
 import { logDOM } from '@testing-library/react';
 import flag from './Image/flag.svg';
+import mine from './Image/mine.svg';
 
 export function Square(props) {
   const alertMe = () => {
@@ -37,6 +38,8 @@ return (
     onContextMenu={handleClick}
   >
     {props.status === 'flagged' ? <img src={flag} width="20px" height="20px" /> : ''}
+    {props.status === 'mined' ? <img src={mine} width="20px" height="20px" /> : ''}
+    {props.status === 'clicked' ? 'c' : ''}
   </button>
 );
 }

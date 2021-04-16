@@ -1,3 +1,5 @@
+import { isItMine } from './Utility';
+
 export class Game {
 
     constructor(status, rows, columns, minesPercent) {
@@ -82,5 +84,58 @@ export class Game {
 
     mined(x, y) {
         this._tiles[x][y] = 'mined';
+    };
+
+    calculate(x, y) {
+        let counter = 0;
+
+        if (x != 0) {
+            if (isItMine(this._mines, x-1, y-1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x-1, y)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x-1, y+1)) {
+                counter++;
+            } 
+        }
+        
+        if (x != this._rows) {
+            if (isItMine(this._mines, x+1, y-1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x+1, y)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x+1, y+1)) {
+                counter++;
+            } 
+        }
+        
+        if (y != 0) {
+            if (isItMine(this._mines, x-1, y-1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x, y-1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x+1, y-1)) {
+                counter++;
+            } 
+        }
+        
+        if (y != this._columns) {
+            if (isItMine(this._mines, x-1, y+1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x, y+1)) {
+                counter++;
+            } 
+            if (isItMine(this._mines, x+1, y+1)) {
+                counter++;
+            } 
+        }
+        console.log(counter);
     };
 }; 

@@ -39,7 +39,7 @@ return (
   >
     {props.status === 'flagged' ? <img src={flag} width="20px" height="20px" /> : ''}
     {props.status === 'mined' ? <img src={mine} width="20px" height="20px" /> : ''}
-    {props.status === 'clicked' ? 'c' : ''}
+    {props.status != 'flagged' && props.status != 'mined' && props.status != 'not clicked' ? props.status : '' }
   </button>
 );
 }

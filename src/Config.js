@@ -60,22 +60,22 @@ export class Game {
 
 
     tileStatus() {
-        this._tiles = []; 
+        this._tiles = [];
         for (let i = 0; i < this._rows; i++) {
             this._tiles.push([]);
             for (let s = 0; s < this._columns; s++) {
                 this._tiles[i].push('not clicked');
             }
         }
-       // console.log(this._tiles);
+        // console.log(this._tiles);
     };
 
     get tiles() {
         return this._tiles;
     };
 
-    click(x, y) {
-            this._tiles[x][y] = 'clicked';
+    unflag(x, y) {
+        this._tiles[x][y] = 'not clicked';
     };
 
     flag(x, y) {
@@ -89,31 +89,31 @@ export class Game {
     calculate(x, y) {
         let counter = 0;
 
-        if (x != 0 && y != 0 && isItMine(this._mines, x-1, y-1)) {
+        if (x != 0 && y != 0 && isItMine(this._mines, x - 1, y - 1)) {
             counter++;
-        } 
-        if (x != 0 && isItMine(this._mines, x-1, y)) {
+        }
+        if (x != 0 && isItMine(this._mines, x - 1, y)) {
             counter++;
-        } 
-        if (x != 0 && y != this._rows && isItMine(this._mines, x-1, y+1)) {
+        }
+        if (x != 0 && y != this._rows && isItMine(this._mines, x - 1, y + 1)) {
             counter++;
-        } 
-        if (x != this._columns && y != 0 && isItMine(this._mines, x+1, y-1)) {
+        }
+        if (x != this._columns && y != 0 && isItMine(this._mines, x + 1, y - 1)) {
             counter++;
-        } 
-        if (x != this._columns && isItMine(this._mines, x+1, y)) {
+        }
+        if (x != this._columns && isItMine(this._mines, x + 1, y)) {
             counter++;
-        } 
-        if (x != this._columns && y != this._rows && isItMine(this._mines, x+1, y+1)) {
+        }
+        if (x != this._columns && y != this._rows && isItMine(this._mines, x + 1, y + 1)) {
             counter++;
-        } 
-        if (y != 0 && isItMine(this._mines, x, y-1)) {
+        }
+        if (y != 0 && isItMine(this._mines, x, y - 1)) {
             counter++;
-        } 
-        if (y != this._rows && isItMine(this._mines, x, y+1)) {
+        }
+        if (y != this._rows && isItMine(this._mines, x, y + 1)) {
             counter++;
-        } 
+        }
         console.log(counter);
         this._tiles[x][y] = `${counter}`;
     };
-}; 
+};

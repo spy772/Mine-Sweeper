@@ -6,7 +6,7 @@ import { isItMine } from './Utility';
 import * as _ from 'lodash';
 
 export function Game() {
-  const [game, setGame] = useState(new Config('started', 45, 45, 15));
+  const [game, setGame] = useState(new Config('started', 10, 10, 15));
   return (
     <div className="game">
       <div className="game-board">
@@ -20,20 +20,32 @@ export function Game() {
   )
 
   function wasClicked(x, y, isLeftClick) {
-    setGame(prev => {
-      const before = JSON.stringify(prev);
-      if (isLeftClick) {
-        if (isItMine(prev.mines, x, y)) {
+
+    if (isLeftClick) {
+      if (isItMine(game.mines, x, y)) {
+        setGame(prev => {
           prev.mined(x, y)
-        } else {
-          prev.calculate(x, y)
-        }
+          return _.cloneDeep(prev);
+        });
       } else {
-        prev.flag(x, y)
+        setGame(prev => {
+          prev.calculate(x, y)
+          return _.cloneDeep(prev);
+        });
       }
-      const now = JSON.stringify(prev);
-      return _.cloneDeep(prev);
-    });
+    } else {
+      if (game.tiles[x][y] === 'flagged') {
+        setGame(prev => {
+          prev.unflag(x, y)
+          return _.cloneDeep(prev);
+        });
+      } else {
+        setGame(prev => {
+          prev.flag(x, y)
+          return _.cloneDeep(prev);
+        });        
+      }
+    }
 
   }
 }

@@ -15,7 +15,7 @@ import gameover from './Image/game-over.jpg';
 import victory from './Image/victory.gif';
 
 export function Game() {
-  const [game, setGame] = useState(new Config('started', 5, 5, 15));
+  const [game, setGame] = useState(new Config('started', 10, 10, 15));
 
   const [open, setOpen] = React.useState(false);
 

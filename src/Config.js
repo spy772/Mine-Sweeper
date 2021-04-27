@@ -93,34 +93,77 @@ export class Game {
         this._tiles[x][y] = 'mined';
     };
 
-    calculate(x, y) {
+    calculate(x, y, mark) {
         let counter = 0;
 
-        if (x != 0 && y != 0 && isItMine(this._mines, x - 1, y - 1)) {
-            counter++;
+        if (x != 0 && y != 0) {
+            if (isItMine(this._mines, x - 1, y - 1)) {
+                counter++;
+            } else if (mark && this._tiles[x-1][y-1] === 'not clicked') {
+                this.calculate(x-1, y-1);
+            }
         }
-        if (x != 0 && isItMine(this._mines, x - 1, y)) {
-            counter++;
+        if (x != 0) {
+            if (isItMine(this._mines, x - 1, y)) {
+                counter++;
+            } else if (mark && this._tiles[x-1][y] === 'not clicked') {
+                this.calculate(x-1, y);
+            }
+        } 
+
+        if (x != 0 && y != this._rows-1) {
+            if (isItMine(this._mines, x - 1, y + 1)) {
+                counter++;
+            } else if (mark && this._tiles[x-1][y+1] === 'not clicked') {
+                this.calculate(x-1, y+1);
+            }
         }
-        if (x != 0 && y != this._rows && isItMine(this._mines, x - 1, y + 1)) {
-            counter++;
+
+        if (x != this._columns-1 && y != 0) {
+            if (isItMine(this._mines, x + 1, y - 1)) {
+                counter++;
+            } else if (mark && this._tiles[x+1][y-1] === 'not clicked') {
+                this.calculate(x+1, y-1);
+            }
         }
-        if (x != this._columns && y != 0 && isItMine(this._mines, x + 1, y - 1)) {
-            counter++;
+
+        if (x != this._columns-1) {
+            if (isItMine(this._mines, x + 1, y)) {
+                counter++;
+            } else if (mark && this._tiles[x+1][y] === 'not clicked') {
+                this.calculate(x+1, y);
+            }
         }
-        if (x != this._columns && isItMine(this._mines, x + 1, y)) {
-            counter++;
+
+        if (x != this._columns-1 && y != this._rows-1) {
+            if (isItMine(this._mines, x + 1, y + 1)) {
+                counter++;
+            } else if (mark && this._tiles[x+1][y+1] === 'not clicked') {
+                this.calculate(x+1, y+1);
+            }
         }
-        if (x != this._columns && y != this._rows && isItMine(this._mines, x + 1, y + 1)) {
-            counter++;
+
+        if (y != 0) {
+            if (isItMine(this._mines, x, y - 1)) {
+                counter++;
+            } else if (mark && this._tiles[x][y-1] === 'not clicked') {
+                this.calculate(x, y-1);
+            }
         }
-        if (y != 0 && isItMine(this._mines, x, y - 1)) {
-            counter++;
+
+        if (y != this._rows-1) {
+            if (isItMine(this._mines, x, y + 1)) {
+                counter++;
+            } else if (mark && this._tiles[x][y+1] === 'not clicked') {
+                this.calculate(x, y+1);
+            }
         }
-        if (y != this._rows && isItMine(this._mines, x, y + 1)) {
-            counter++;
-        }
+
         console.log(counter);
         this._tiles[x][y] = `${counter}`;
+
+        if (counter === 0 && !mark) {
+            this.calculate(x, y, true) 
+        };
     };
 };

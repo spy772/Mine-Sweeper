@@ -10,9 +10,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import giphy from './Image/giphy.gif';
+import gameover from './Image/game-over.jpg';
+import victory from './Image/victory.gif';
 
 export function Game() {
-  const [game, setGame] = useState(new Config('started', 10, 10, 15));
+  const [game, setGame] = useState(new Config('started', 5, 5, 15));
 
   const [open, setOpen] = React.useState(false);
 
@@ -26,7 +29,7 @@ export function Game() {
 
   const newGame = () => {
     setGame(prev => {
-      return new Config('started', 10, 10, 15); 
+      return new Config('started', 10, 10, 15);
     })
     handleClose();
   };
@@ -42,9 +45,10 @@ export function Game() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Game Over!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{game.status === 'game over' ? "Game Over!" : "Victory!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
+          {game.status === 'game over' ? <img src={giphy} width="550px" height="275px" /> : <img src={victory} width="550px" height="413px"/>}
             Do you want to start a new game?
           </DialogContentText>
         </DialogContent>
@@ -59,6 +63,8 @@ export function Game() {
       </Dialog>
     </div>
   )
+
+
 
   function wasClicked(x, y, isLeftClick) {
 
@@ -88,11 +94,14 @@ export function Game() {
         });
       } else {
         setGame(prev => {
-          prev.flag(x, y)
+          if (prev.flag(x, y)) {
+            prev.status = 'victory';
+            handleClickOpen();
+          } 
           return _.cloneDeep(prev);
-        });        
+        });
       }
     }
 
-  }
-}
+  };
+};

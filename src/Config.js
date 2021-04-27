@@ -80,6 +80,13 @@ export class Game {
 
     flag(x, y) {
         this._tiles[x][y] = 'flagged';
+        for (let i = 0; i < this._mines.length; i++) {
+            let mineStatus = this._mines[i];
+            if (this._tiles[mineStatus.x][mineStatus.y] != 'flagged') {
+                return false;
+            };
+        };
+        return true;
     };
 
     mined(x, y) {

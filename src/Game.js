@@ -13,11 +13,43 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import giphy from './Image/giphy.gif';
 import gameover from './Image/game-over.jpg';
 import victory from './Image/victory.gif';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 export function Game() {
-  const [game, setGame] = useState(new Config('started', 10, 10, 15));
+
+  const classes = useStyles();
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const newGameParams = {
+    height: 20,
+    width: 20,
+    percent: 15
+  };
+
+  const [game, setGame] = useState(new Config('started', newGameParams.height, newGameParams.width, newGameParams.percent));
 
   const [open, setOpen] = React.useState(false);
+
+  const [openNewGame, setOpenNewGame] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,15 +61,26 @@ export function Game() {
 
   const newGame = () => {
     setGame(prev => {
-      return new Config('started', 10, 10, 15);
+      return new Config('started', newGameParams.height, newGameParams.width, newGameParams.percent);
     })
     handleClose();
+  };
+
+  const handleNewGame = () => {
+    setOpenNewGame(true);
+  };
+
+  const handleCloseNewGame = () => {
+    setOpenNewGame(false);
   };
 
   return (
     <div className="game">
       <div className="game-board">
         <Board rows={game.rows} columns={game.columns} tiles={game.tiles} squareEvent={wasClicked} />
+        <Button onClick={handleNewGame} color="primary">
+            New Game
+        </Button>
       </div>
       <Dialog
         open={open}
@@ -61,7 +104,45 @@ export function Game() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog
+        open={openNewGame}
+        onClose={handleCloseNewGame}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{game.status === 'game over' ? "Game Over!" : "Victory!"}</DialogTitle>
+        <DialogContent>
+        <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+        <FormHelperText>Some important helper text</FormHelperText>
+      </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseNewGame} color="primary">
+            No thanks
+          </Button>
+          <Button onClick={newGame} color="primary" autoFocus>
+            Yes, I would love to!
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
+
   )
 
 

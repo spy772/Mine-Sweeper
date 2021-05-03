@@ -19,6 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { size } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -32,17 +33,22 @@ const useStyles = makeStyles((theme) => ({
 
 export function Game() {
 
-  const classes = useStyles();
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
   const newGameParams = {
     height: 20,
     width: 20,
     percent: 15
+  };
+
+  const classes = useStyles();
+  const [size, setSize] = React.useState(newGameParams.height);
+  const [difficulty, setDifficulty] = React.useState(newGameParams.percent);
+
+  const handleChangeSize = (event) => {
+    setSize(event.target.value);
+  };
+
+  const handleChangeDifficulty = (event) => {
+    setDifficulty(event.target.value);
   };
 
   const [game, setGame] = useState(new Config('started', newGameParams.height, newGameParams.width, newGameParams.percent));
@@ -61,9 +67,10 @@ export function Game() {
 
   const newGame = () => {
     setGame(prev => {
-      return new Config('started', newGameParams.height, newGameParams.width, newGameParams.percent);
+      return new Config('started', size, size, difficulty);
     })
     handleClose();
+    handleCloseNewGame();
   };
 
   const handleNewGame = () => {
@@ -79,7 +86,7 @@ export function Game() {
       <div className="game-board">
         <Board rows={game.rows} columns={game.columns} tiles={game.tiles} squareEvent={wasClicked} />
         <Button onClick={handleNewGame} color="primary">
-            New Game
+          New Game
         </Button>
       </div>
       <Dialog
@@ -91,7 +98,7 @@ export function Game() {
         <DialogTitle id="alert-dialog-title">{game.status === 'game over' ? "Game Over!" : "Victory!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          {game.status === 'game over' ? <img src={giphy} width="550px" height="275px" /> : <img src={victory} width="550px" height="413px"/>}
+            {game.status === 'game over' ? <img src={giphy} width="550px" height="275px" /> : <img src={victory} width="550px" height="413px" />}
             Do you want to start a new game?
           </DialogContentText>
         </DialogContent>
@@ -111,32 +118,46 @@ export function Game() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{game.status === 'game over' ? "Game Over!" : "Victory!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">New Game</DialogTitle>
         <DialogContent>
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={age}
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Some important helper text</FormHelperText>
-      </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="size-label">Size</InputLabel>
+            <Select
+              labelId="size-label"
+              id="size"
+              value={size}
+              onChange={handleChangeSize}
+            >
+              <MenuItem value={10}>Small (10x10)</MenuItem>
+              <MenuItem value={15}>Medium (15x15)</MenuItem>
+              <MenuItem value={20}>Large (20x20)</MenuItem>
+              <MenuItem value={30}>Extra-Large (30x30)</MenuItem>
+            </Select>
+            <FormHelperText>Size of the board</FormHelperText>
+          </FormControl>
+
+          <FormControl className={classes.formControl}>
+            <InputLabel id="difficulty-label">Difficulty</InputLabel>
+            <Select
+              labelId="difficulty-label"
+              id="difficulty"
+              value={difficulty}
+              onChange={handleChangeDifficulty}
+            >
+              <MenuItem value={10}>Easy (10%)</MenuItem>
+              <MenuItem value={15}>Normal (15%)</MenuItem>
+              <MenuItem value={20}>Hard (20%)</MenuItem>
+              <MenuItem value={25}>Insane (25%)</MenuItem>
+            </Select>
+            <FormHelperText>Percentage of mines on the field</FormHelperText>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseNewGame} color="primary">
-            No thanks
+           Cancel
           </Button>
           <Button onClick={newGame} color="primary" autoFocus>
-            Yes, I would love to!
+            Start!
           </Button>
         </DialogActions>
       </Dialog>
@@ -178,7 +199,7 @@ export function Game() {
           if (prev.flag(x, y)) {
             prev.status = 'victory';
             handleClickOpen();
-          } 
+          }
           return _.cloneDeep(prev);
         });
       }

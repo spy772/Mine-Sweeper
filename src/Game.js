@@ -170,11 +170,13 @@ export function Game() {
 
   function wasClicked(x, y, isLeftClick) {
 
+    if (game.status === 'game over' || game.status === 'game over') {
+      handleClickOpen();
+      return;
+    } 
+
     if (isLeftClick) {
-      if (game.status === 'game over') {
-        handleNewGame();
-        return;
-      } else if (isItMine(game.mines, x, y)) {
+       if (isItMine(game.mines, x, y)) {
         setGame(prev => {
           prev.mined(x, y)
           return _.cloneDeep(prev);

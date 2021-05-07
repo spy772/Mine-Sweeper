@@ -106,7 +106,7 @@ export function Game() {
           <Button onClick={handleClose} color="primary">
             No thanks
           </Button>
-          <Button onClick={newGame} color="primary" autoFocus>
+          <Button onClick={handleNewGame} color="primary" autoFocus>
             Yes, I would love to!
           </Button>
         </DialogActions>
@@ -154,7 +154,7 @@ export function Game() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseNewGame} color="primary">
-           Cancel
+            Cancel
           </Button>
           <Button onClick={newGame} color="primary" autoFocus>
             Start!
@@ -171,7 +171,10 @@ export function Game() {
   function wasClicked(x, y, isLeftClick) {
 
     if (isLeftClick) {
-      if (isItMine(game.mines, x, y)) {
+      if (game.status === 'game over') {
+        handleNewGame();
+        return;
+      } else if (isItMine(game.mines, x, y)) {
         setGame(prev => {
           prev.mined(x, y)
           return _.cloneDeep(prev);

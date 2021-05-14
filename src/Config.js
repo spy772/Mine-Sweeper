@@ -74,6 +74,18 @@ export class Game {
         return this._tiles;
     };
 
+    victoryFlagCheck() {
+        for (let i = 0; i < this._tiles.length; i++) {
+            const tileArr = this._tiles[i];
+            for (let s = 0; s < tileArr.length; s++) {
+                if (!isItMine(this._mines, i, s) && tileArr[s] === 'flagged') {
+                    return false;
+                };
+            };
+        };
+        return true;
+    };
+
     unflag(x, y) {
         this._tiles[x][y] = 'not clicked';
     };
@@ -86,7 +98,7 @@ export class Game {
                 return false;
             };
         };
-        return true;
+        return this.victoryFlagCheck();
     };
 
     mined(x, y) {
